@@ -49,19 +49,3 @@ const Array2: number[] = [3, 11, 4, 1, 5, 9, 11, 6]; // Added array type annotat
 
 // Lets start simple
 // Loop through all elements, find the min value, and swap it with the first spot
-
-for (let i = 0; i < Array2.length; i++) {
-    let swapped = false;
-
-    for (let j = 0; j < Array2.length - 1; j++) {
-
-       if () {
-        let swapped = true;
-
-       } else {
-        // If no swaps, 
-       } 
-    }
-  console.log(i);
-  if(!swapped) break; // Then it's done
-}
