@@ -32,7 +32,7 @@ const sortedNumbers: number[] = [
 ];
 
 function BinarySearch(arr: number[], target: number): number {
-  // Lets define our midpoint, left point and right point. For odd numbers, it'll chose the left number... I think
+  // Let's define our midpoint, left point and right point. For odd numbers, it'll choose the left number
   let mid = Math.floor(arr.length / 2);
   let l = 0;
   let r = arr.length - 1;
@@ -58,3 +58,7 @@ function BinarySearch(arr: number[], target: number): number {
 }
 
 console.log(BinarySearch(sortedNumbers, 63)); // 47 is the middle index fwiw
+
+// Nice!
+// Now lets get to the good stuff
+// DFS! There's a lot of theory that is needed here, but at the end of the day implementing this will be the way to go.
