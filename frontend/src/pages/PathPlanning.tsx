@@ -10,4 +10,4 @@ function PathPlanning() {
     )
 }
 
-export default PathPlanning
+export default PathPlanning;
