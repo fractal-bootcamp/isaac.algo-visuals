@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import BubbleSort from './BubbleSort';
+import LinearSearch from './LinearSearch';
 
-const Sorting: React.FC = () => {
+const Searches: React.FC = () => {
     const [selectedOption, setSelectedOption] = useState<string>('');
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -16,12 +16,12 @@ const Sorting: React.FC = () => {
                 className="border border-gray-300 rounded-md p-2"
             >
                 <option value="">Select an option</option>
-                <option value="bubbleSort">Bubble Sort</option>
+                <option value="option1">Option 1</option>
                 <option value="option2">Option 2</option>
                 <option value="option3">Option 3</option>
             </select>
             <div className="mt-2">
-                {selectedOption === 'bubbleSort' && <BubbleSort />}
+                {selectedOption === 'option1' && <LinearSearch />}
                 {selectedOption === 'option2' && <p>Content for Option 2</p>}
                 {selectedOption === 'option3' && <p>Content for Option 3</p>}
             </div>
@@ -29,4 +29,4 @@ const Sorting: React.FC = () => {
     );
 };
 
-export default Sorting;
+export default Searches;
