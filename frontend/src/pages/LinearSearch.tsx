@@ -1,56 +1,63 @@
 import React, { useState } from 'react';
-
+import { LinearSearch3 } from '../BasicSearches';
 
 function LinearSearch() {
+    const [demoArray, setDemoArray] = useState(
+        Array.from({ length: 8 }, () => Math.floor(Math.random() * 11))
+    );
+    const [highlightedIndices, setHighlightedIndices] = useState<number[]>([]);
+    const [target, setTarget] = useState(Math.floor(Math.random() * 11)); // Random target number
+    const [searchResult, setSearchResult] = useState<string | null>(null);
 
-    const [message, setMessage] = useState("Hello!");
-    const [demoArray, setDemoArray] = useState([5, 2, 1, 7, 14]);
 
     const handleClick = () => {
-        // Now we need to start bubble sort
-        // Our array will be the default useState array
-
-        for (let i = 0; i < demoArray.length; i++) {
-            // console.log(i);
-        }
-
+        LinearSearch3(demoArray, target, (currentIndex) => {
+            setHighlightedIndices([currentIndex]); // Set the current index being compared
+        }).then((result) => {
+            if (result === -1) {
+                setSearchResult("Target not found");
+            } else {
+                setSearchResult(`Target found at index ${result}`);
+            }
+        });
     };
+
 
     return (
         <>
             <h2>
-                To start with bubble sort, lets make an array of unsorted integers.
+                Linear search is as simple as it gets. Check each position one by one until you find the item.
             </h2>
             <div className="flex">
-                <div className="w-12 h-12 border border-black p-5"> {demoArray[0]} </div>
-                <div className="w-12 h-12 border border-black p-5"> {demoArray[1]} </div>
-                <div className="w-12 h-12 border border-black p-5"> {demoArray[2]} </div>
-                <div className="w-12 h-12 border border-black p-5"> {demoArray[3]} </div>
-                <div className="w-12 h-12 border border-black p-5"> {demoArray[4]} </div>
+                {demoArray.map((item, index) => (
+                    <div
+                        key={index}
+                        className={`w-12 h-12 border border-black p-5 flex justify-center items-center ${highlightedIndices.includes(index) ? 'bg-yellow-300' : ''
+                            }`}
+                    >
+                        {item}
+                    </div>
+                ))}
             </div>
             <h1 className="mb-4 text-gray-800">
-                So, what is the essence of bubble sort? The premise is relatively simple.
-                <ul className="list-disc pl-6 mt-2 space-y-2 text-gray-700">
-                    <li className="text-sm">
-                        Compare two adjacent elements.
-                    </li>
-                    <li className="text-sm">
-                        If they're out of order, swap them.
-                    </li>
-                    <li className="text-sm">
-                        Move on to the next element, comparing the two.
-                    </li>
-                    <li className="text-sm">
-                        Loop through the entire array as many times as needed to sort the entire array.
-                    </li>
-                </ul>
+                All we need is a target, which in this instance will be the number{' '}
+                <span className="font-bold">{target}</span>
             </h1>
-            <button onClick={handleClick} className='bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 transition duration-300'>
+            <button
+                onClick={handleClick}
+                className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
+            >
                 Press to get started
             </button>
+            <div className="flex flex-col items-center">
+                {searchResult && (
+                    <div className="mt-4 text-lg font-bold text-green-600">
+                        {searchResult}
+                    </div>
+                )}
+            </div>
         </>
-
-    )
+    );
 }
 
 export default LinearSearch;

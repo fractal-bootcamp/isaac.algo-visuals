@@ -14,6 +14,69 @@ function LinearSearch(arr: number[], target: number): number {
   return -1;
 }
 
+// Lets go through this step by step - we need a linear search function with callbacks
+// We also need to export it
+// We need to make it async
+
+// We'll return a number that will be the index of the array. If it's not there return -1
+// Dunno if this code is good or not
+// export const LinearSearch2(arr: number[], target: number): number => {
+//   for(let i = 0; i < arr.length; i++) {
+//     if (arr[i] === target) {
+//       return(i)
+//     }
+//   }
+//   return -1;
+// }
+
+export const LinearSearch3 = async (
+  arr: number[],
+  target: number,
+  onCompare: (currentIndex: number) => void,
+  delay: number = 200
+): Promise<number> => {
+  for (let i = 0; i < arr.length; i++) {
+    // Add a delay before each comparison
+    await new Promise((resolve) => setTimeout(resolve, delay));
+
+    // Call the callback with the current index being compared
+    onCompare(i);
+
+    if (arr[i] === target) {
+      return i; // Found the target
+    }
+  }
+  return -1; // Target not found
+};
+
+export const bubbleSortWithCallback2 = async (
+  array: number[],
+  callback: (array: number[], indices: number[]) => void
+): Promise<void> => {
+  let arr = [...array];
+  let n = arr.length;
+  const delay = (ms: number): Promise<void> =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+  const bubbleSort = async () => {
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n - i - 1; j++) {
+        if (arr[j] > arr[j + 1]) {
+          // Swap adjacent elements
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+          // Pass the updated array and the indices being swapped to the callback
+          callback([...arr], [j, j + 1]);
+          // Add a delay to see the effect of the sort in steps
+          await delay(500); // 500ms delay
+        }
+      }
+    }
+    // Reset the highlighted indices when sorting is done
+    callback([...arr], []);
+  };
+  await bubbleSort();
+};
+
 // console.log(LinearSearch(unsortedArray, 54));
 
 // Binary search!
