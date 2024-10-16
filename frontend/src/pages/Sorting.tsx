@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import BubbleSort from './BubbleSort';
+import LinearSearch from './LinearSearch';
 
 const Sorting: React.FC = () => {
     const [selectedOption, setSelectedOption] = useState<string>('');
@@ -17,12 +18,12 @@ const Sorting: React.FC = () => {
             >
                 <option value="">Select an option</option>
                 <option value="bubbleSort">Bubble Sort</option>
-                <option value="option2">Option 2</option>
+                <option value="linearSearch">Linear Search</option>
                 <option value="option3">Option 3</option>
             </select>
             <div className="mt-2">
                 {selectedOption === 'bubbleSort' && <BubbleSort />}
-                {selectedOption === 'option2' && <p>Content for Option 2</p>}
+                {selectedOption === 'linearSearch' && <LinearSearch />}
                 {selectedOption === 'option3' && <p>Content for Option 3</p>}
             </div>
         </div>

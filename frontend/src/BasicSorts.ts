@@ -73,14 +73,12 @@ export function bubbleSortWithCallback(
   return unsortedArray;
 }
 
-// V2 of the this
 export const bubbleSortWithCallback2 = async (
   array: number[],
-  callback: (array: number[]) => void
+  callback: (array: number[], indices: number[]) => void
 ): Promise<void> => {
   let arr = [...array];
   let n = arr.length;
-
   const delay = (ms: number): Promise<void> =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -90,15 +88,16 @@ export const bubbleSortWithCallback2 = async (
         if (arr[j] > arr[j + 1]) {
           // Swap adjacent elements
           [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-          // Pass the updated array to the callback
-          callback([...arr]);
+          // Pass the updated array and the indices being swapped to the callback
+          callback([...arr], [j, j + 1]);
           // Add a delay to see the effect of the sort in steps
           await delay(500); // 500ms delay
         }
       }
     }
+    // Reset the highlighted indices when sorting is done
+    callback([...arr], []);
   };
-
   await bubbleSort();
 };
 
