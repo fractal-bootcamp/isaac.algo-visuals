@@ -1,5 +1,7 @@
 // SEARCHES
 
+import { circle } from "framer-motion/client";
+
 // Lets go through some of the basic searches
 // Linear search
 
@@ -139,6 +141,7 @@ function BinarySearch(arr: number[], target: number): number {
 
 type Vertex = string; // You can change this to number if you prefer
 
+// This is a purely abstract representation. You can't console log it as it only exists at typescript compile time.
 interface AdjacencyList {
   [vertex: Vertex]: Vertex[];
 }
@@ -159,6 +162,7 @@ function dfs(
   start: Vertex,
   visited: Set<Vertex> = new Set()
 ): void {
+  // Note that this function is technically void - the real output are the side effects, the console.log
   // Mark the current node as visited
   visited.add(start);
   console.log(start); // Print or process the node
@@ -173,3 +177,30 @@ function dfs(
 
 // Start DFS traversal from node 'A'
 dfs(graph, "D");
+
+// And now, BFS
+
+function bfs(graph: AdjacencyList, start: Vertex): void {
+  const visited: Set<Vertex> = new Set();
+  const queue: Vertex[] = [start];
+
+  // Mark the start node as visited
+  visited.add(start);
+
+  // Loop while there are nodes in the queue
+  while (queue.length > 0) {
+    const current = queue.shift()!; // Dequeue a vertex from the front
+    console.log(current); // Print or process the node
+
+    // Enqueue all unvisited adjacent vertices
+    for (const neighbor of graph[current]) {
+      if (!visited.has(neighbor)) {
+        visited.add(neighbor);
+        queue.push(neighbor); // Add the neighbor to the queue for future exploration
+      }
+    }
+  }
+}
+
+// Start BFS traversal from node 'A'
+bfs(graph, "A");
