@@ -120,8 +120,56 @@ function BinarySearch(arr: number[], target: number): number {
   return -1;
 }
 
-console.log(BinarySearch(sortedNumbers, 63)); // 47 is the middle index fwiw
+// console.log(BinarySearch(sortedNumbers, 63)); // 47 is the middle index fwiw
 
 // Nice!
 // Now lets get to the good stuff
 // DFS! There's a lot of theory that is needed here, but at the end of the day implementing this will be the way to go.
+
+// We'll be traversing everything vertically before going horizontally
+// The concept of the stack is really important, and is needed to do DFS (and when you think about it, it makes sense)
+// Think of the large stack of plates
+
+// Two ways to store the data, adjacency list and an adjacency matrix - they each have their own tradeoffs
+// Typically an adjacency list is more popular, though there are times where the matrix is a better option
+// You should know the details between the two
+
+// The adjaceny list is simple, it's just a list of all connections for each node.
+// I will be storing it as an object
+
+type Vertex = string; // You can change this to number if you prefer
+
+interface AdjacencyList {
+  [vertex: Vertex]: Vertex[];
+}
+
+const graph: AdjacencyList = {
+  A: ["B", "C"],
+  B: ["A", "D", "E"],
+  C: ["A", "F"],
+  D: ["B"],
+  E: ["B", "F"],
+  F: ["C", "E"],
+};
+
+// Lets start off with the basics.
+
+function dfs(
+  graph: AdjacencyList,
+  start: Vertex,
+  visited: Set<Vertex> = new Set()
+): void {
+  // Mark the current node as visited
+  visited.add(start);
+  console.log(start); // Print or process the node
+
+  // Recur for all the vertices adjacent to this vertex
+  for (const neighbor of graph[start]) {
+    if (!visited.has(neighbor)) {
+      dfs(graph, neighbor, visited);
+    }
+  }
+}
+
+// Start DFS traversal from node 'A'
+dfs(graph, "D");
