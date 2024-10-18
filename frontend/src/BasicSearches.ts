@@ -150,9 +150,10 @@ const graph: AdjacencyList = {
   A: ["B", "C"],
   B: ["A", "D", "E"],
   C: ["A", "F"],
-  D: ["B"],
+  D: ["B", "G"],
   E: ["B", "F"],
   F: ["C", "E"],
+  G: ["D"],
 };
 
 // Lets start off with the basics.
@@ -176,7 +177,7 @@ export function dfsOld(
   }
 }
 
-// dfs
+// the actual dfs function im using
 export function dfs(
   graph: AdjacencyList,
   currentVertex: Vertex,
@@ -200,11 +201,11 @@ export function dfs(
 // To think of graph[currentVertex] think of arr[i], same exact thing
 
 // Start DFS traversal from node 'A'
-dfsOld(graph, "D");
+// dfsOld(graph, "D");
 
 // And now, BFS
 
-function bfs(graph: AdjacencyList, start: Vertex): void {
+export function bfsOld(graph: AdjacencyList, start: Vertex): void {
   const visited: Set<Vertex> = new Set();
   const queue: Vertex[] = [start];
 
@@ -227,4 +228,35 @@ function bfs(graph: AdjacencyList, start: Vertex): void {
 }
 
 // Start BFS traversal from node 'A'
-bfs(graph, "A");
+bfsOld(graph, "A");
+
+// now the final, working BFS
+export function bfs(
+  graph: AdjacencyList,
+  startVertex: Vertex,
+  visited: Set<Vertex> = new Set<Vertex>(), // Specify Set<Vertex> type
+  traversal: Vertex[] = [] // Specify Vertex[] type for traversal array
+): Vertex[] {
+  const queue: Vertex[] = [startVertex]; // Queue to manage BFS
+
+  // Mark the start node as visited
+  visited.add(startVertex);
+
+  while (queue.length > 0) {
+    const currentVertex = queue.shift(); // Get the vertex at the front of the queue
+
+    if (currentVertex !== undefined) {
+      traversal.push(currentVertex);
+
+      // Enqueue all unvisited neighbors of the current vertex
+      for (const neighbor of graph[currentVertex]) {
+        if (!visited.has(neighbor)) {
+          visited.add(neighbor);
+          queue.push(neighbor);
+        }
+      }
+    }
+  }
+
+  return traversal;
+}
