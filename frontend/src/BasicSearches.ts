@@ -157,26 +157,50 @@ const graph: AdjacencyList = {
 
 // Lets start off with the basics.
 
-function dfs(
+export function dfsOld(
   graph: AdjacencyList,
-  start: Vertex,
+  currentVertex: Vertex,
   visited: Set<Vertex> = new Set()
 ): void {
   // Note that this function is technically void - the real output are the side effects, the console.log
   // Mark the current node as visited
-  visited.add(start);
-  console.log(start); // Print or process the node
+  visited.add(currentVertex);
+  console.log(currentVertex); // Print or process the node
 
   // Recur for all the vertices adjacent to this vertex
-  for (const neighbor of graph[start]) {
+  for (const neighbor of currentVertex) {
+    // For each of the neighbors of A...  // START IS A VERTEX! - FIRST ITERATION IS A!
     if (!visited.has(neighbor)) {
-      dfs(graph, neighbor, visited);
+      dfsOld(graph, neighbor, visited);
     }
   }
 }
 
+// dfs
+export function dfs(
+  graph: AdjacencyList,
+  currentVertex: Vertex,
+  visited: Set<Vertex> = new Set<Vertex>(), // Specify Set<Vertex> type
+  traversal: Vertex[] = [] // Specify Vertex[] type for traversal array
+): Vertex[] {
+  // Mark the current node as visited
+  visited.add(currentVertex);
+  traversal.push(currentVertex);
+
+  // Recur for all the vertices adjacent to this vertex
+  for (const neighbor of graph[currentVertex]) {
+    if (!visited.has(neighbor)) {
+      dfs(graph, neighbor, visited, traversal);
+    }
+  }
+
+  return traversal;
+}
+
+// To think of graph[currentVertex] think of arr[i], same exact thing
+
 // Start DFS traversal from node 'A'
-dfs(graph, "D");
+dfsOld(graph, "D");
 
 // And now, BFS
 

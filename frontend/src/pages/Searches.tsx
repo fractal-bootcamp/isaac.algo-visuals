@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LinearSearch from './LinearSearch';
-
+import DFS from './DFS';
 
 const Searches: React.FC = () => {
     const [selectedOption, setSelectedOption] = useState<string>('');
@@ -18,12 +18,12 @@ const Searches: React.FC = () => {
             >
                 <option value="">Select an option</option>
                 <option value="LinearSearch">LinearSearch</option>
-                <option value="option2">Option 2</option>
+                <option value="DFS">DFS</option>
                 <option value="option3">Option 3</option>
             </select>
             <div className="mt-2">
                 {selectedOption === 'LinearSearch' && <LinearSearch />}
-                {selectedOption === 'option2' && <p>Content for Option 2</p>}
+                {selectedOption === 'DFS' && <DFS />}
                 {selectedOption === 'option3' && <p>Content for Option 3</p>}
             </div>
         </div>
