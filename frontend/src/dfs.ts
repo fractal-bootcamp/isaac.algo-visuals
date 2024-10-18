@@ -15,7 +15,7 @@ const graph: AdjacencyList = {
   G: ["D"],
 };
 
-function dfs(
+export function dfs(
   graph: AdjacencyList,
   currentVertex: Vertex,
   target: Vertex,
