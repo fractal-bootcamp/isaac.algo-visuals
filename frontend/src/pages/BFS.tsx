@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { dfs } from '../BasicSearches';
+import React, { useState, useEffect } from 'react'
+import { bfs } from '../BasicSearches';
 
-function DFS() {
+
+function BFS() {
+
     const [traversalOrder, setTraversalOrder] = useState([]);
 
     const graph = {
@@ -24,8 +26,8 @@ function DFS() {
         G: { x: 100, y: 350 },
     };
 
-    const handleDFS = () => {
-        const traversal = dfs(graph, 'A'); // Get the traversal order from your dfs function
+    const handleBFS = () => {
+        const traversal = bfs(graph, 'A'); // Get the traversal order from your dfs function
         setTraversalOrder([]); // Clear the traversal order initially
 
         traversal.forEach((node, index) => {
@@ -35,7 +37,6 @@ function DFS() {
             }, index * 500); // 500ms delay between each node (adjust as needed)
         });
     };
-
     const Node = ({ node }) => {
         const isVisited = traversalOrder.includes(node);
         const fillColor = isVisited ? 'orange' : 'lightblue';
@@ -62,7 +63,7 @@ function DFS() {
     return (
         <div className="p-4">
             <h2 className="text-xl font-bold mb-4">DFS Graph Visualization</h2>
-            <button onClick={handleDFS} className="mb-4 px-4 py-2 bg-blue-500 text-white rounded">Run DFS</button>
+            <button onClick={handleBFS} className="mb-4 px-4 py-2 bg-blue-500 text-white rounded">Run BFS</button>
             <svg width="400" height="400" className="border border-gray-300">
                 {Object.entries(graph).map(([node, neighbors]) =>
                     neighbors.map(neighbor => <Edge key={`${node}-${neighbor}`} start={node} end={neighbor} />)
@@ -71,7 +72,8 @@ function DFS() {
             </svg>
             <p className="mt-4">Traversal Order: {traversalOrder.join(' -> ')}</p>
         </div>
-    );
+    )
+
 }
 
-export default DFS;
+export default BFS
